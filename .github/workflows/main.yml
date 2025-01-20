@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/frontend-deploy-nuxt:latest
+  DOCKER_IMAGE: ghcr.io/${{ secrets.REAL_ACTOR }}/frontend-deploy-nuxt:latest
 
 jobs:
   build:
@@ -40,7 +40,7 @@ jobs:
           cd /home/ec2-user/nuxt/frontend
           docker-compose down
 
-          echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.REAL_ACTOR }} --password-stdin
           docker pull ${{ env.DOCKER_IMAGE }}
 
           docker image prune -f
